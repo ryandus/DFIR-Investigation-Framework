@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>00_Product_Blueprint</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">00_Product_Blueprint</h1>
+</header>
+<h1 id="dfir-professional-investigation-incident-response-template-suite">DFIR
+PROFESSIONAL INVESTIGATION &amp; INCIDENT RESPONSE TEMPLATE SUITE</h1>
+<p><strong>Master Product Architecture, Taxonomy &amp; Commercial
+Blueprint</strong><br />
+<strong>Version:</strong> 1.0.0 | <strong>Author/Publisher:</strong>
+[INSERT_LAB_OR_BRAND_NAME]<br />
+<strong>Target Standards:</strong> NIST SP 800-86, NIST SP 800-61r3,
+ISO/IEC 27037, ISO/IEC 27042, Federal Rules of Evidence (FRE 702 &amp;
+901)</p>
+<hr />
+<h2 id="product-summary-commercial-value-proposition">1. PRODUCT SUMMARY
+&amp; COMMERCIAL VALUE PROPOSITION</h2>
+<p>This toolkit is a modular, legally defensible, and operationally
+validated digital forensics document system. It is engineered
+specifically for solo DFIR practitioners, boutique cybersecurity firms,
+law enforcement digital forensic units (DFUs), and enterprise internal
+incident response/SOC teams.</p>
+<h3 id="core-value-drivers">Core Value Drivers:</h3>
+<ul>
+<li><strong>Court Admissibility:</strong> Structured to withstand
+Daubert/Frye challenges and adhere to strict FRE 702/901 expert witness
+thresholds.</li>
+<li><strong>Repeatable SOPs:</strong> Standardizes laboratory and field
+evidence handling under ISO/IEC 27037/27042 and NIST SP 800-86.</li>
+<li><strong>Billable Velocity:</strong> Cuts expert forensic report
+drafting time by 60–70% through pre-built technical frameworks and
+standardized artifact tables.</li>
+</ul>
+<hr />
+<h2 id="modular-suite-inventory-suite-structure">2. MODULAR SUITE
+INVENTORY &amp; SUITE STRUCTURE</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Suite File Name</th>
+<th style="text-align: left;">Core Modules Included</th>
+<th style="text-align: left;">Applicable Standards</th>
+<th style="text-align: left;">Primary Operational Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>00_Product_Blueprint</code></strong></td>
+<td style="text-align: left;">Architecture &amp; Taxonomy Blueprint</td>
+<td style="text-align: left;">Product Catalog Specs</td>
+<td style="text-align: left;">System architecture, standard mappings,
+monetization framework.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>01_Master_DFIR_Investigation_Report</code></strong></td>
+<td style="text-align: left;">Forensic Examination Final Report &amp;
+Executive Summary</td>
+<td style="text-align: left;">NIST SP 800-86, FRE 702/901</td>
+<td style="text-align: left;">Complete billable deliverable covering
+technical timeline, tooling, and findings.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>02_Intake_and_Chain_of_Custody_Suite</code></strong></td>
+<td style="text-align: left;">Master CoC, Acquisition Form, Evidence
+Return, Consent</td>
+<td style="text-align: left;">ISO/IEC 27037, NIST SP 800-88</td>
+<td style="text-align: left;">Laboratory/field evidence custody
+tracking, physical assessment, write-block hashing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>03_A_Ransomware_Playbook</code></strong></td>
+<td style="text-align: left;">Ransomware &amp; Extortion Incident
+Response</td>
+<td style="text-align: left;">NIST SP 800-61r3, MITRE ATT&amp;CK</td>
+<td style="text-align: left;">SLA matrix, host containment CLI, memory
+acquisition, root-cause triage.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>03_B_Insider_Threat_Playbook</code></strong></td>
+<td style="text-align: left;">IP Theft, USB &amp; Cloud
+Exfiltration</td>
+<td style="text-align: left;">ISO/IEC 27042, CERT Insider Threat</td>
+<td style="text-align: left;">Registry USBSTOR parsing, OneDrive/GDrive
+sync databases, shellbags, anti-forensics.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>03_C_Live_Triage_CheatSheet</code></strong></td>
+<td style="text-align: left;">Live System Volatile Triage Reference</td>
+<td style="text-align: left;">RFC 3227 (Order of Volatility)</td>
+<td style="text-align: left;">Volatile RAM dumping, live Windows CLI
+artifact extraction, power-state decisions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>04_Legal_and_Expert_Witness_Suite</code></strong></td>
+<td style="text-align: left;">Court Affidavit, Cross-Exam Prep, Retainer
+MSA</td>
+<td style="text-align: left;">FRCP Rule 26, FRE 702</td>
+<td style="text-align: left;">Sworn expert declaration, Daubert
+preparation checklist, commercial fee agreement.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="commercial-packaging-monetization-tiers">3. COMMERCIAL PACKAGING
+&amp; MONETIZATION TIERS</h2>
+<h3 id="tier-1-the-solo-examiner-starter-kit">Tier 1: “The Solo Examiner
+Starter Kit”</h3>
+<ul>
+<li><strong>Inclusions:</strong>
+<code>01_Master_DFIR_Investigation_Report</code>,
+<code>02_Intake_and_Chain_of_Custody_Suite</code>.</li>
+<li><strong>Target Price:</strong> $47 – $79</li>
+<li><strong>Format:</strong> Universal Markdown (<code>.md</code>) and
+Microsoft Word (<code>.docx</code>).</li>
+</ul>
+<h3 id="tier-2-the-complete-dfir-practitioner-suite-flagship">Tier 2:
+“The Complete DFIR Practitioner Suite” (Flagship)</h3>
+<ul>
+<li><strong>Inclusions:</strong> Full 7-Suite System (<code>00</code>
+through <code>04</code>).</li>
+<li><strong>Format:</strong> Multi-format release bundle
+(<code>.md</code>, <code>.docx</code>, print-ready
+<code>.pdf</code>).</li>
+<li><strong>Target Price:</strong> $149 – $249</li>
+</ul>
+<h3 id="tier-3-enterprise-firm-multi-seat-license">Tier 3: “Enterprise /
+Firm Multi-Seat License”</h3>
+<ul>
+<li><strong>Inclusions:</strong> Everything in Tier 2 + White-Label
+Commercial Rights (rebranding and internal firm-wide deployment).</li>
+<li><strong>Target Price:</strong> $499 – $799</li>
+</ul>
+<hr />
+<h2 id="design-deployment-guidelines">4. DESIGN &amp; DEPLOYMENT
+GUIDELINES</h2>
+<ol type="1">
+<li><strong>Standardized Dynamic Placeholders:</strong> All configurable
+inputs use uppercase bracket notation (e.g.,
+<code>[INSERT_CASE_NUMBER]</code>, <code>[INSERT_EXAMINER_NAME]</code>,
+<code>[INSERT_SHA256_HASH]</code>).</li>
+<li><strong>Format Symmetry:</strong> Every document exists across three
+formats: Print/Field PDF (<code>01_Print_and_Field_PDFs/</code>),
+Editable Word Document (<code>02_Editable_Word_Docs/</code>), and
+Markdown (<code>03_Markdown_Source/</code>).</li>
+<li><strong>Impartial Scientific Tone:</strong> Language adheres to
+strict objective reporting standards suitable for legal
+proceedings.</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>02_Intake_and_Chain_of_Custody_Suite</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">02_Intake_and_Chain_of_Custody_Suite</h1>
+</header>
+<h1 id="digital-evidence-intake-acquisition-custody-suite">DIGITAL
+EVIDENCE INTAKE, ACQUISITION &amp; CUSTODY SUITE</h1>
+<p><strong>Document Control ID:</strong> DFIR-MOD-01<br />
+<strong>Compliance Standards:</strong> ISO/IEC 27037:2012, NIST SP
+800-86, NIST SP 800-88 Rev. 1, Federal Rules of Evidence (FRE 901)<br />
+<strong>Classification:</strong> STRICTLY CONFIDENTIAL // EVIDENCE
+RECORD</p>
+<hr />
+<h2 id="part-1-master-digital-evidence-chain-of-custody-coc-log">PART 1:
+MASTER DIGITAL EVIDENCE CHAIN OF CUSTODY (CoC) LOG</h2>
+<h3 id="administrative-case-header">1.1 Administrative Case Header</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Investigative Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Laboratory / Agency Case
+ID:</strong></td>
+<td style="text-align: left;"><code>[INSERT_CASE_NUMBER]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>External Agency Reference
+ID:</strong></td>
+<td style="text-align: left;"><code>[INSERT_EXTERNAL_AGENCY_REF]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Primary Forensic
+Examiner:</strong></td>
+<td style="text-align: left;"><code>[INSERT_PRIMARY_EXAMINER_NAME]</code>,
+<code>[BADGE/ID_NUMBER]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Requesting Agency / Retaining
+Client:</strong></td>
+<td style="text-align: left;"><code>[INSERT_CLIENT_OR_AGENCY_NAME]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Investigation Title /
+Matter:</strong></td>
+<td style="text-align: left;"><code>[INSERT_CASE_MATTER_NAME]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Subject / Target
+Identifier:</strong></td>
+<td style="text-align: left;"><code>[INSERT_TARGET_NAME_OR_IDENTIFIER]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Secure Vault Storage
+Location:</strong></td>
+<td style="text-align: left;"><code>[INSERT_VAULT_NUMBER / SHELF / LOCKER_ID]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="digital-physical-evidence-master-inventory-table">1.2 Digital
+Physical Evidence Master Inventory Table</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Item #</th>
+<th style="text-align: left;">Complete Item Description (Make, Model,
+Color, Condition)</th>
+<th style="text-align: left;">Serial Number / IMEI / MAC</th>
+<th style="text-align: left;">Storage Media Type &amp; Capacity</th>
+<th style="text-align: left;">Tamper-Evident Bag Seal #</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Item 01</strong></td>
+<td style="text-align: left;"><code>[INSERT_MAKE_MODEL_DESCRIPTION_01]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_OR_IMEI_01]</code></td>
+<td style="text-align: left;"><code>[e.g., NVMe M.2 SSD - 1TB]</code></td>
+<td style="text-align: left;"><code>[INSERT_SEAL_NUM_01]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Item 02</strong></td>
+<td style="text-align: left;"><code>[INSERT_MAKE_MODEL_DESCRIPTION_02]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_OR_IMEI_02]</code></td>
+<td style="text-align: left;"><code>[e.g., SATA 3.5 HDD - 4TB]</code></td>
+<td style="text-align: left;"><code>[INSERT_SEAL_NUM_02]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Item 03</strong></td>
+<td style="text-align: left;"><code>[INSERT_MAKE_MODEL_DESCRIPTION_03]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_OR_IMEI_03]</code></td>
+<td style="text-align: left;"><code>[e.g., iPhone 15 Pro - 256GB]</code></td>
+<td style="text-align: left;"><code>[INSERT_SEAL_NUM_03]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Item 04</strong></td>
+<td style="text-align: left;"><code>[INSERT_MAKE_MODEL_DESCRIPTION_04]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_OR_IMEI_04]</code></td>
+<td style="text-align: left;"><code>[e.g., USB Flash Drive - 64GB]</code></td>
+<td style="text-align: left;"><code>[INSERT_SEAL_NUM_04]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="custodial-transfer-tracking-log-table">1.3 Custodial Transfer
+&amp; Tracking Log Table</h3>
+<blockquote>
+<p><strong>MANDATORY PROTOCOL:</strong> Every physical or digital
+movement of evidence items must be logged below immediately upon
+transfer. No transfer is legally valid without both releasing and
+receiving party signatures.</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Item #(s)</th>
+<th style="text-align: left;">Date &amp; Time (Local / UTC)</th>
+<th style="text-align: left;">Released By (Print &amp; Sign)</th>
+<th style="text-align: left;">Received By (Print &amp; Sign)</th>
+<th style="text-align: left;">Transfer Location</th>
+<th style="text-align: left;">Purpose of Transfer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>01, 02</strong></td>
+<td style="text-align: left;"><code>[INSERT_DATETIME_1]</code></td>
+<td style="text-align: left;"><code>[RELEASING_PARTY_1]</code></td>
+<td style="text-align: left;"><code>[RECEIVING_PARTY_1]</code></td>
+<td style="text-align: left;"><code>[LOCATION_1]</code></td>
+<td style="text-align: left;">Evidence intake and secure vault
+logging</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>01</strong></td>
+<td style="text-align: left;"><code>[INSERT_DATETIME_2]</code></td>
+<td style="text-align: left;"><code>[RELEASING_PARTY_2]</code></td>
+<td style="text-align: left;"><code>[RECEIVING_PARTY_2]</code></td>
+<td style="text-align: left;">Forensic Lab Station 03</td>
+<td style="text-align: left;">Physical write-blocked bit-stream
+acquisition</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>01</strong></td>
+<td style="text-align: left;"><code>[INSERT_DATETIME_3]</code></td>
+<td style="text-align: left;"><code>[RELEASING_PARTY_3]</code></td>
+<td style="text-align: left;"><code>[RECEIVING_PARTY_3]</code></td>
+<td style="text-align: left;">Evidence Vault Locker A</td>
+<td style="text-align: left;">Return to secure long-term evidence
+storage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[ITEM_#]</code></td>
+<td style="text-align: left;"><code>[INSERT_DATETIME_4]</code></td>
+<td style="text-align: left;"><code>[RELEASING_PARTY_4]</code></td>
+<td style="text-align: left;"><code>[RECEIVING_PARTY_4]</code></td>
+<td style="text-align: left;"><code>[LOCATION_4]</code></td>
+<td style="text-align: left;"><code>[PURPOSE_4]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="part-2-digital-evidence-acquisition-intake-worksheet">PART 2:
+DIGITAL EVIDENCE ACQUISITION &amp; INTAKE WORKSHEET</h2>
+<h3 id="physical-environmental-assessment-upon-seizure">2.1 Physical
+&amp; Environmental Assessment Upon Seizure</h3>
+<ul>
+<li><strong>Item Number:</strong> <code>[INSERT_ITEM_NUMBER]</code></li>
+<li><strong>Power State Upon Arrival:</strong>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Powered Off (Cold)</label></li>
+<li><label><input type="checkbox"></input>Powered On / Unlocked (Live Screen
+State)</label></li>
+<li><label><input type="checkbox"></input>Powered On / Screen Locked (PIN /
+Password Unknown)</label></li>
+<li><label><input type="checkbox"></input>Sleep / Hibernation
+State</label></li>
+</ul></li>
+<li><strong>Isolation Applied Immediately:</strong>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Faraday Bag / RF Shielding Container
+(Seal #: <code>[INSERT_FARADAY_SEAL]</code>)</label></li>
+<li><label><input type="checkbox"></input>Airplane Mode Toggled ON (Physical
+interaction verified)</label></li>
+<li><label><input type="checkbox"></input>SIM Card Removed (ICCID:
+<code>[INSERT_SIM_ICCID]</code>)</label></li>
+<li><label><input type="checkbox"></input>Network Interface Physically
+Disconnected / Disabled</label></li>
+</ul></li>
+<li><strong>Physical Condition Observations:</strong>
+<code>[INSERT_PHYSICAL_NOTES: e.g., Minor chassis casing scratch; ports intact; water immersion indicator white/untriggered.]</code></li>
+</ul>
+<h3 id="forensic-write-blocker-tool-calibration">2.2 Forensic
+Write-Blocker &amp; Tool Calibration</h3>
+<ul>
+<li><strong>Hardware Write-Blocker:</strong>
+<code>[INSERT_WRITE_BLOCKER_MAKE_AND_MODEL]</code></li>
+<li><strong>Serial Number:</strong>
+<code>[INSERT_BLOCKER_SERIAL_NUMBER]</code> | <strong>Firmware:</strong>
+<code>[INSERT_BLOCKER_FIRMWARE]</code></li>
+<li><strong>Validation Check:</strong>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Hardware Write-Protect switch
+engaged and verified via OS read-only mount test.</label></li>
+<li><label><input type="checkbox"></input>Passed laboratory calibration cycle
+(Calibration Date: <code>[INSERT_CAL_DATE]</code>).</label></li>
+</ul></li>
+</ul>
+<h3 id="acquisition-methodology-specifications">2.3 Acquisition
+Methodology &amp; Specifications</h3>
+<ul>
+<li><strong>Forensic Software Engine:</strong>
+<code>[INSERT_SOFTWARE_E.G., FTK IMAGER / MAGNET AXIOM / X-WAYS / GUYMAGER]</code>
+(Version: <code>[INSERT_VERSION]</code>)</li>
+<li><strong>Acquisition Type:</strong>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Physical Raw Bit-Stream
+(<code>.dd</code> / <code>.raw</code> / <code>.img</code>)</label></li>
+<li><label><input type="checkbox"></input>Expert Witness Compression Format
+(<code>.E01</code> / <code>.Ex01</code> - Segment Size:
+<code>[2048 MB]</code>)</label></li>
+<li><label><input type="checkbox"></input>Advanced Forensic Format
+(<code>.AFF4</code>)</label></li>
+<li><label><input type="checkbox"></input>Logical File Extraction / Targeted
+Container (<code>.L01</code> / <code>.AD1</code>)</label></li>
+</ul></li>
+<li><strong>Destination Storage Drive:</strong> Drive Serial
+<code>[INSERT_DESTINATION_DRIVE_SERIAL]</code>, Path
+<code>[INSERT_OUTPUT_PATH]</code></li>
+</ul>
+<h3 id="cryptographic-verification-hashes">2.4 Cryptographic
+Verification Hashes</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Hash Algorithm</th>
+<th style="text-align: left;">Source Pre-Acquisition Value</th>
+<th style="text-align: left;">Output Post-Acquisition Value</th>
+<th style="text-align: left;">Match Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MD5</strong></td>
+<td style="text-align: left;"><code>[INSERT_SOURCE_MD5_HASH]</code></td>
+<td style="text-align: left;"><code>[INSERT_VERIFICATION_MD5_HASH]</code></td>
+<td style="text-align: left;"><strong>VERIFIED BIT-FOR-BIT
+MATCH</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SHA-256</strong></td>
+<td style="text-align: left;"><code>[INSERT_SOURCE_SHA256_HASH]</code></td>
+<td style="text-align: left;"><code>[INSERT_VERIFICATION_SHA256_HASH]</code></td>
+<td style="text-align: left;"><strong>VERIFIED BIT-FOR-BIT
+MATCH</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="part-3-evidence-return-destruction-sanitization-agreement">PART
+3: EVIDENCE RETURN, DESTRUCTION &amp; SANITIZATION AGREEMENT</h2>
+<h3 id="authorization-for-final-disposition">3.1 Authorization for Final
+Disposition</h3>
+<p>The undersigned client / retaining counsel hereby authorizes
+<code>[INSERT_LAB_OR_AGENCY_NAME]</code> to execute the final
+disposition of evidence media listed below in compliance with
+<strong>NIST SP 800-88 Rev. 1 Guidelines for Media
+Sanitization</strong>.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Item #</th>
+<th style="text-align: left;">Serial Number</th>
+<th style="text-align: left;">Requested Action (Return / Sanitize /
+Destroy)</th>
+<th style="text-align: left;">Sanitization Method Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Item 01</strong></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_01]</code></td>
+<td style="text-align: left;"><code>[ ] RETURN TO CLIENT  [ ] SANITIZE &amp; RELEASE  [ ] SECURE DESTRUCTION</code></td>
+<td style="text-align: left;"><code>[e.g., NIST Clear / Purge / Physical Shred]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Item 02</strong></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_02]</code></td>
+<td style="text-align: left;"><code>[ ] RETURN TO CLIENT  [ ] SANITIZE &amp; RELEASE  [ ] SECURE DESTRUCTION</code></td>
+<td style="text-align: left;"><code>[e.g., NIST Clear / Purge / Physical Shred]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="certificate-of-sanitization-destruction">3.2 Certificate of
+Sanitization / Destruction</h3>
+<ul>
+<li><strong>Sanitization Software / Tool:</strong>
+<code>[INSERT_WIPE_TOOL_NAME]</code> (Version:
+<code>[VERSION]</code>)</li>
+<li><strong>Sanitization Verification:</strong> Post-wipe hex inspection
+verified 100% zero-byte / random fill pattern across all LBA
+blocks.</li>
+<li><strong>Date Action Completed:</strong> <code>[INSERT_DATE]</code> |
+<strong>Technician Name:</strong>
+<code>[INSERT_TECHNICIAN_NAME]</code></li>
+</ul>
+<h3 id="liability-release-custody-relinquishment">3.3 Liability Release
+&amp; Custody Relinquishment</h3>
+<p>Client acknowledges that upon execution of this return or destruction
+order, <code>[INSERT_LAB_OR_AGENCY_NAME]</code> is fully released from
+all future custodial liability and data preservation obligations
+regarding the listed media.</p>
+<p><strong>Client / Retaining Counsel Signature:</strong>
+_______________________________________ <strong>Date:</strong>
+<code>[INSERT_DATE]</code><br />
+<strong>Forensic Custodian Signature:</strong>
+_______________________________________________ <strong>Date:</strong>
+<code>[INSERT_DATE]</code></p>
+<hr />
+<h2 id="part-4-consent-to-search-digital-extraction-authorization">PART
+4: CONSENT TO SEARCH &amp; DIGITAL EXTRACTION AUTHORIZATION</h2>
+<h3 id="voluntary-consent-authorization">4.1 Voluntary Consent &amp;
+Authorization</h3>
+<p>I, <code>[INSERT_CONSENTING_PARTY_NAME]</code>, hereby certify that I
+am the legal owner, authorized corporate representative, or lawful
+custodian of the electronic devices and accounts described below. I
+freely and voluntarily grant permission to
+<code>[INSERT_LAB_OR_COMPANY_NAME]</code> to conduct a digital forensic
+examination, extraction, and technical analysis.</p>
+<h3 id="authorized-devices-scope-limitations">4.2 Authorized Devices
+&amp; Scope Limitations</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Device Description</th>
+<th style="text-align: left;">Serial Number / IMEI</th>
+<th style="text-align: left;">Permitted Scope / Investigative
+Restrictions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>[INSERT_DEVICE_01]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_01]</code></td>
+<td style="text-align: left;"><code>[e.g., Limited to corporate email and file activity between Jan 1 - Mar 30, 2026]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[INSERT_DEVICE_02]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_02]</code></td>
+<td style="text-align: left;"><code>[e.g., Full bit-stream acquisition and forensic artifact analysis]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="explicit-authorization-terms">4.3 Explicit Authorization
+Terms</h3>
+<ol type="1">
+<li><strong>Non-Destructive Testing:</strong> Forensic examination will
+be performed on write-blocked bit-stream copies whenever technically
+feasible.</li>
+<li><strong>Credential &amp; Decryption Access:</strong> I authorize the
+forensic team to bypass, reset, or extract access credentials and
+encryption keys strictly necessary to execute the agreed scope.</li>
+<li><strong>Privilege &amp; Confidentiality:</strong> All recovered data
+shall remain strictly confidential subject to attorney-client privilege
+or applicable non-disclosure agreements.</li>
+</ol>
+<p><strong>Consenting Party Printed Name:</strong>
+<code>[INSERT_NAME]</code><br />
+<strong>Title / Relationship:</strong>
+<code>[INSERT_TITLE_OR_RELATIONSHIP]</code><br />
+<strong>Signature:</strong>
+_____________________________________________________
+<strong>Date:</strong> <code>[INSERT_DATE]</code><br />
+<strong>Witnessing Examiner Signature:</strong>
+_________________________________ <strong>Date:</strong>
+<code>[INSERT_DATE]</code></p>
+</body>
+</html>

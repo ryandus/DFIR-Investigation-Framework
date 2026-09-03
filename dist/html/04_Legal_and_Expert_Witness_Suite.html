@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>04_Legal_and_Expert_Witness_Suite</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">04_Legal_and_Expert_Witness_Suite</h1>
+</header>
+<h1 id="digital-forensics-expert-witness-legal-suite">DIGITAL FORENSICS
+EXPERT WITNESS &amp; LEGAL SUITE</h1>
+<p><strong>Document Control ID:</strong> DFIR-LEG-004<br />
+<strong>Governing Standards:</strong> Federal Rules of Evidence (FRE
+702, FRE 901), FRCP Rule 26(a)(2)(B)<br />
+<strong>Classification:</strong> PRIVILEGED ATTORNEY WORK PRODUCT //
+COURT-READY TEMPLATE</p>
+<hr />
+<h2 id="part-1-formal-expert-witness-declaration-affidavit">PART 1:
+FORMAL EXPERT WITNESS DECLARATION / AFFIDAVIT</h2>
+<p>IN THE UNITED STATES DISTRICT COURT / CIRCUIT COURT<br />
+FOR THE [INSERT_DISTRICT_OR_COUNTY]</p>
+<p>[INSERT_PLAINTIFF_NAME / STATE / PEOPLE],<br />
+Plaintiff/Prosecution,<br />
+v. Case No.: [INSERT_COURT_CASE_NUMBER]<br />
+[INSERT_DEFENDANT_NAME],<br />
+Defendant.<br />
+____________________________________________/</p>
+<p>DECLARATION / AFFIDAVIT OF EXPERT WITNESS
+[INSERT_EXAMINER_NAME]<br />
+REGARDING DIGITAL FORENSIC ANALYSIS OF RECOVERED ELECTRONIC EVIDENCE</p>
+<h3 id="statement-of-qualifications-competency">1. Statement of
+Qualifications &amp; Competency</h3>
+<ol type="1">
+<li>My name is [INSERT_EXAMINER_NAME]. I am over the age of eighteen
+(18) years, of sound mind, and fully competent to make this declaration.
+I have personal knowledge of the facts set forth herein.</li>
+<li>I currently serve as [INSERT_TITLE] at
+[INSERT_LAB_OR_COMPANY_NAME].</li>
+<li>I hold [INSERT_DEGREE_OR_EDUCATION] and active industry
+certifications in digital forensics and incident response, including
+[INSERT_CERTIFICATIONS_E.G., CCE, EnCE, GCFA, GASF]. I have conducted
+digital forensics investigations on over [INSERT_APPROX_CASE_COUNT]
+cases involving computer and mobile devices.</li>
+<li>My complete Curriculum Vitae (CV), listing prior expert testimony,
+publications, and professional affiliations over the preceding four (4)
+years, is attached hereto as Exhibit A.</li>
+</ol>
+<h3 id="evidence-acquisition-custodial-integrity">2. Evidence
+Acquisition &amp; Custodial Integrity</h3>
+<ol start="5" type="1">
+<li>On [INSERT_INTAKE_DATE], I took physical custody of Evidence Item 01
+(Serial Number: [INSERT_SERIAL_NUMBER]).</li>
+<li>A forensically sterile bit-stream physical image was acquired
+utilizing a calibrated hardware write-blocker (Model:
+[INSERT_WRITE_BLOCKER], Serial: [INSERT_BLOCKER_SERIAL]).</li>
+<li>Cryptographic hashes calculated prior to and immediately following
+acquisition matched identically:
+<ul>
+<li>Source Pre-Acquisition SHA-256:
+<code>[INSERT_SHA256_HASH]</code></li>
+<li>Forensic Image Post-Acquisition SHA-256:
+<code>[INSERT_SHA256_HASH]</code></li>
+</ul></li>
+<li>Evidence integrity was strictly preserved in compliance with ISO/IEC
+27037 and Federal Rule of Evidence 901.</li>
+</ol>
+<h3 id="summary-of-forensic-findings-expert-opinions">3. Summary of
+Forensic Findings &amp; Expert Opinions</h3>
+<ol start="9" type="1">
+<li>Based upon my technical analysis of system registry hives,
+filesystem journals ($MFT / $UsnJrnl), and program execution artifacts
+(Prefetch, Amcache, Shellbags), it is my professional opinion, held to a
+reasonable degree of scientific certainty, that:
+<ul>
+<li>A. On [INSERT_DATE] at [INSERT_TIME_UTC], the user account
+[INSERT_USER_ACCOUNT] was authenticated and active on the subject
+workstation.</li>
+<li>B. At [INSERT_TIMESTAMP], external storage device
+[INSERT_USB_MAKE_MODEL] (Serial: [INSERT_USB_SERIAL]) was physically
+mounted.</li>
+<li>C. Specific confidential documents identified in Exhibit B were
+accessed and transferred directly to said external media.</li>
+<li>D. Intentional anti-forensic measures were subsequently executed in
+an attempt to delete security event logs and purge the file system
+journal.</li>
+</ul></li>
+</ol>
+<p>I declare under penalty of perjury under the laws of the United
+States that the foregoing is true and correct.</p>
+<p>Executed this [INSERT_DAY] day of [INSERT_MONTH], 20[YEAR], at
+[INSERT_CITY, STATE].</p>
+<hr />
+<p>[INSERT_EXAMINER_NAME], [INSERT_CREDENTIALS]<br />
+Declarant / Expert Witness</p>
+<hr />
+<h2 id="part-2-expert-witness-deposition-testimony-preparation-checklist">PART
+2: EXPERT WITNESS DEPOSITION &amp; TESTIMONY PREPARATION CHECKLIST</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Verification Item</th>
+<th style="text-align: left;">Completed / Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tool Validation</strong></td>
+<td style="text-align: left;">Verified all software/hardware used meets
+Daubert / Frye standard (peer-reviewed, known error rate).</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Chain of Custody</strong></td>
+<td style="text-align: left;">Reviewed every physical/digital transfer
+log for unbroken signatures, badge numbers, and dates.</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hash Verification</strong></td>
+<td style="text-align: left;">Double-checked SHA-256 acquisition
+vs. verification hashes across all bench notes and exhibits.</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Opposing Expert
+Review</strong></td>
+<td style="text-align: left;">Read opposing expert’s rebuttal
+declaration; documented factual refutations citing raw hex and
+offsets.</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Courtroom
+Demonstratives</strong></td>
+<td style="text-align: left;">Prepared clear, non-technical visual
+charts and timeline diagrams for the jury / trier of fact.</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Timezone Alignment</strong></td>
+<td style="text-align: left;">Confirmed all timeline exhibits explicitly
+state whether timestamps are in UTC or local standard time.</td>
+<td style="text-align: left;">[ ] YES</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="part-3-master-services-agreement-msa-expert-retainer-skeleton">PART
+3: MASTER SERVICES AGREEMENT (MSA) &amp; EXPERT RETAINER SKELETON</h2>
+<h3 id="fee-schedule-retainer-structure">3.1 Fee Schedule &amp; Retainer
+Structure</h3>
+<ul>
+<li><strong>Standard Forensic Laboratory Examination Rate:</strong>
+$[INSERT_HOURLY_RATE] / Hour</li>
+<li><strong>Deposition / Courtroom Expert Testimony Rate:</strong>
+$[INSERT_TESTIMONY_RATE] / Hour (Minimum [INSERT_HOURLY_MINIMUM] hours
+per day)</li>
+<li><strong>Travel &amp; Portal-to-Portal Expenses:</strong> Billed at
+standard IRS mileage rate + actual lodging/per diem costs.</li>
+<li><strong>Initial Evergreen Retainer Required:</strong>
+$[INSERT_INITIAL_RETAINER] (Work commences only upon receipt of retainer
+funds into trust).</li>
+</ul>
+<h3 id="impartiality-scientific-objectivity-clause">3.2 Impartiality
+&amp; Scientific Objectivity Clause</h3>
+<blockquote>
+<p>“Client and retaining counsel expressly acknowledge that Consultant
+is retained to conduct an objective, scientific forensic examination in
+accordance with accepted scientific standards. Consultant does not
+guarantee any specific outcome or finding and will not alter technical
+findings or withhold relevant evidence to favor any party.”</p>
+</blockquote>
+<h3 id="evidence-retention-disposal-post-litigation">3.3 Evidence
+Retention &amp; Disposal Post-Litigation</h3>
+<blockquote>
+<p>“Upon final resolution of the legal matter or termination of this
+Agreement, Retaining Counsel must provide written instruction for the
+return or certified destruction of evidentiary media within sixty (60)
+days. In the absence of written direction, media will be securely stored
+subject to ongoing monthly archival fees of $[INSERT_VAULT_FEE].”</p>
+</blockquote>
+<p>AGREED AND ACCEPTED:</p>
+<p><strong>RETAINING COUNSEL / CLIENT:</strong><br />
+Signature: _________________________________________________<br />
+Printed: [INSERT_CLIENT_NAME]<br />
+Title: [INSERT_TITLE]<br />
+Firm: [INSERT_LAW_FIRM]<br />
+Date: [INSERT_DATE]</p>
+<p><strong>FORENSIC CONSULTANT / LAB:</strong><br />
+Signature: _________________________________________________<br />
+Printed: [INSERT_EXAMINER_NAME]<br />
+Title: [INSERT_EXAMINER_TITLE]<br />
+Firm: [INSERT_CONSULTANT_FIRM]<br />
+Date: [INSERT_DATE]</p>
+</body>
+</html>

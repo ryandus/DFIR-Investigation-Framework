@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>03_C_Live_Triage_CheatSheet</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">03_C_Live_Triage_CheatSheet</h1>
+</header>
+<h1 id="live-system-triage-volatile-artifact-collection-cheat-sheet">LIVE
+SYSTEM TRIAGE &amp; VOLATILE ARTIFACT COLLECTION CHEAT SHEET</h1>
+<p><strong>Document Control ID:</strong> DFIR-REF-003 <strong>Target
+Standard:</strong> RFC 3227 (Guidelines for Evidence Collection and
+Archiving) <strong>Classification:</strong> TECHNICAL REFERENCE // FIELD
+GUIDE</p>
+<hr />
+<h2 id="rfc-3227-order-of-volatility-execution-model">1. RFC 3227 ORDER
+OF VOLATILITY EXECUTION MODEL</h2>
+<p>When acquiring evidence from a live system, collect data in order of
+decreasing volatility to prevent overwriting critical transient state
+artifacts:</p>
+<ol type="1">
+<li><strong>Registers &amp; CPU Cache / Physical RAM</strong> (Highest
+volatility - lost on power off)</li>
+<li><strong>Routing Tables, ARP Cache, Process Tables, Kernel
+Memory</strong></li>
+<li><strong>Active Network Sockets &amp; Ephemeral
+Connections</strong></li>
+<li><strong>Temporary File Systems, Swap Space / Pagefile</strong></li>
+<li><strong>Persistent Storage &amp; Disk Logs</strong></li>
+<li><strong>Remote Logging &amp; Archival Backups</strong> (Lowest
+volatility)</li>
+</ol>
+<blockquote>
+<p><strong>CORE FORENSIC RULE:</strong> Run all triage binaries directly
+from an external, forensically prepared triage drive (<code>E:\</code>).
+Do NOT install software on the suspect host. Pipe all CLI outputs
+directly to the triage drive to prevent disk contamination.</p>
+</blockquote>
+<hr />
+<h2 id="volatile-memory-ram-extraction-commands">2. VOLATILE MEMORY
+(RAM) EXTRACTION COMMANDS</h2>
+<ul>
+<li><p><strong>WinPmem (Windows Raw RAM Dump):</strong>
+<code>winpmem.exe -o E:\Triage_Output\[CASE_ID]_[HOSTNAME]_RAM.raw</code></p></li>
+<li><p><strong>DumpIt (Automated Memory Capture):</strong>
+<code>DumpIt.exe /OUTPUT E:\Triage_Output\[CASE_ID]_[HOSTNAME]_RAM.dmp</code></p></li>
+<li><p><strong>LiME (Linux Kernel Module Memory Capture):</strong>
+<code>insmod lime.ko &quot;path=/mnt/triage_usb/[CASE_ID]_[HOSTNAME]_RAM.lime format=raw&quot;</code></p></li>
+</ul>
+<hr />
+<h2 id="live-windows-triage-cli-matrix">3. LIVE WINDOWS TRIAGE CLI
+MATRIX</h2>
+<p>Run these commands from an elevated command prompt residing on your
+external triage volume (<code>E:\</code>):</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Target Artifact</th>
+<th style="text-align: left;">Native Command Syntax</th>
+<th style="text-align: left;">Forensic Objective / Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>System Time &amp;
+Date</strong></td>
+<td style="text-align: left;"><code>net time \\127.0.0.1</code> /
+<code>Get-Date -Format o</code></td>
+<td style="text-align: left;">Records exact clock skew against NIST/GPS
+reference time.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Active Network
+Sockets</strong></td>
+<td style="text-align: left;"><code>netstat -ano -b &gt; E:\Triage\network_sockets.txt</code></td>
+<td style="text-align: left;">Identifies active listening ports, remote
+C2 connections, and associated Process IDs (PID).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Routing Table &amp;
+ARP</strong></td>
+<td style="text-align: left;"><code>route print &amp; arp -a &gt; E:\Triage\routing_arp.txt</code></td>
+<td style="text-align: left;">Captures gateway redirects, MITM caches,
+and local subnet neighbors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Process Tree &amp;
+Arguments</strong></td>
+<td style="text-align: left;"><code>wmic process get ProcessId,ParentProcessId,CommandLine,ExecutablePath /format:csv &gt; E:\Triage\processes.csv</code></td>
+<td style="text-align: left;">Full command-line launch strings (detects
+encoded PowerShell, injected processes, and LOLBAS).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Active Services</strong></td>
+<td style="text-align: left;"><code>Get-CimInstance Win32_Service | Select-Object Name,State,StartMode,PathName | Export-Csv E:\Triage\services.csv</code></td>
+<td style="text-align: left;">Identifies malicious persistence
+mechanisms masquerading as legitimate services.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Scheduled Tasks</strong></td>
+<td style="text-align: left;"><code>schtasks /query /fo CSV /v &gt; E:\Triage\scheduled_tasks.csv</code></td>
+<td style="text-align: left;">Captures persistent scheduled tasks,
+triggers, and hidden script paths.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Logged-in Sessions</strong></td>
+<td style="text-align: left;"><code>query user &amp; qwinsta &gt; E:\Triage\user_sessions.txt</code></td>
+<td style="text-align: left;">Identifies active console, RDP, and
+disconnected background sessions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Network Shares</strong></td>
+<td style="text-align: left;"><code>net share &amp; net use &gt; E:\Triage\smb_shares.txt</code></td>
+<td style="text-align: left;">Discovers mounted network drives and
+internal staging shares.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Loaded Drivers</strong></td>
+<td style="text-align: left;"><code>driverquery /v /fo CSV &gt; E:\Triage\drivers.csv</code></td>
+<td style="text-align: left;">Identifies unsigned, obsolete, or
+malicious kernel drivers (BYOVD exploits).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Firewall Status</strong></td>
+<td style="text-align: left;"><code>netsh advfirewall show allprofiles &gt; E:\Triage\firewall_rules.txt</code></td>
+<td style="text-align: left;">Verifies whether local perimeter firewall
+policies were disabled or modified.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="power-state-decision-matrix">4. POWER-STATE DECISION MATRIX</h2>
+<ul>
+<li><strong>If System is Powered OFF:</strong>
+<ul>
+<li>Keep powered OFF.</li>
+<li>Remove AC power cable and battery (if applicable).</li>
+<li>Transport inside an RF-shielded Faraday container.</li>
+<li>Acquire via write-blocked dead-box disk imaging.</li>
+</ul></li>
+<li><strong>If System is Powered ON and Disk is Encrypted (BitLocker /
+FileVault / LUKS):</strong>
+<ul>
+<li><strong>DO NOT PULL THE PLUG.</strong></li>
+<li>Capture RAM first (preserves in-memory volume decryption keys).</li>
+<li>Extract volume recovery keys/escrow passwords.</li>
+<li>Perform live logical or physical capture while volume is mounted and
+unlocked.</li>
+</ul></li>
+<li><strong>If System is Powered ON and Active Malware is
+Wiping/Encrypting Disk:</strong>
+<ul>
+<li>Immediately sever network connections (pull Ethernet / toggle
+physical Wi-Fi switch).</li>
+<li>Immediately pull power cable from the rear of the machine to halt
+destructive write cycles.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="triage-log-md5sha-256-integrity-manifest">5. TRIAGE LOG &amp;
+MD5/SHA-256 INTEGRITY MANIFEST</h2>
+<p>Immediately after completing live triage commands, calculate
+cryptographic hashes for all collected output files:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> <span class="op">-</span>Path <span class="st">&quot;E:\Triage_Output&quot;</span> <span class="op">-</span>Recurse <span class="op">-</span>File <span class="op">|</span> Get-FileHash <span class="op">-</span>Algorithm SHA256 <span class="op">|</span> <span class="fu">Export-Csv</span> <span class="st">&quot;E:\Triage_Output\Manifest_SHA256.csv&quot;</span> <span class="op">-</span>NoTypeInformation</span></code></pre></div>
+<p><strong>Field Examiner Signature:</strong>
+_____________________________________________<br />
+<strong>Printed Name:</strong> [INSERT_EXAMINER_NAME],
+[CREDENTIALS]<br />
+<strong>Date &amp; Time Completed (UTC):</strong>
+[INSERT_TIMESTAMP_UTC]</p>
+</body>
+</html>

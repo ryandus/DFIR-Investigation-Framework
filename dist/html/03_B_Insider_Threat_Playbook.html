@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>03_B_Insider_Threat_Playbook</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">03_B_Insider_Threat_Playbook</h1>
+</header>
+<h1 id="insider-threat-ip-theft-data-exfiltration-investigation-playbook">INSIDER
+THREAT, IP THEFT &amp; DATA EXFILTRATION INVESTIGATION PLAYBOOK</h1>
+<p><strong>Document Control ID:</strong> DFIR-PB-002 <strong>Target
+Standards:</strong> ISO/IEC 27042:2015, NIST SP 800-86, CERT Insider
+Threat Guide <strong>Case Identifier:</strong> [INSERT_CASE_NUMBER]
+<strong>Lead Examiner:</strong> [INSERT_EXAMINER_NAME] |
+<strong>Corporate Entity / Agency:</strong> [INSERT_ORGANIZATION]
+<strong>Subject Under Investigation:</strong>
+[INSERT_EMPLOYEE_NAME_AND_USER_ID] <strong>Investigation
+Classification:</strong> HIGHLY CONFIDENTIAL // ATTORNEY-CLIENT
+PRIVILEGED</p>
+<hr />
+<h2 id="intake-authorization-preservation-protocols">1. INTAKE,
+AUTHORIZATION &amp; PRESERVATION PROTOCOLS</h2>
+<h3 id="hr-general-counsel-coordination-checklist">1.1 HR &amp; General
+Counsel Coordination Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Legal Authority
+Verified:</strong> Written authorization received from Legal Counsel/HR
+prior to seizing or interrogating employee
+workstation/accounts.</label></li>
+<li><label><input type="checkbox"></input><strong>Preservation Hold
+Issued:</strong> Legal hold notification served to IT Operations to
+suspend mailbox retention policies, cloud account auto-purges, and audit
+log roll-overs.</label></li>
+<li><label><input type="checkbox"></input><strong>Silent Account
+Suspension:</strong> Coordinate timing so Active Directory, SSO
+(Okta/Entra ID), and VPN access are revoked simultaneously without
+alerting the subject during physical device acquisition.</label></li>
+<li><label><input type="checkbox"></input><strong>Mobile Device &amp; BYOD
+Assessment:</strong> Identify if company-managed MDM profiles
+(Intune/Jamf) or MAM containers reside on subject’s personal mobile
+hardware.</label></li>
+</ul>
+<hr />
+<h2 id="removable-media-usb-artifact-hunting-guide">2. REMOVABLE MEDIA
+&amp; USB ARTIFACT HUNTING GUIDE</h2>
+<p>To establish physical exfiltration to flash drives, external SSDs, or
+SD cards, interrogate the following system registry hives and diagnostic
+logs in chronological sequence:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Investigative Question</th>
+<th style="text-align: left;">Target Forensic Artifact / Key Path</th>
+<th style="text-align: left;">Expected Value / Forensic Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Was a USB drive
+connected?</strong></td>
+<td style="text-align: left;"><code>HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</code></td>
+<td style="text-align: left;">Vendor Name, Product Model, Unique Serial
+Number, Device Class GUID.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>First/Last time
+connected?</strong></td>
+<td style="text-align: left;"><code>C:\Windows\INF\setupapi.dev.log</code></td>
+<td style="text-align: left;">Exact local hardware installation date,
+first insert time, and driver initialization.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>What drive letter did it
+get?</strong></td>
+<td style="text-align: left;"><code>HKLM\SYSTEM\MountedDevices</code></td>
+<td style="text-align: left;">Maps the unique Volume GUID
+(<code>\\?\Volume{...}</code>) to drive letter (e.g.,
+<code>E:\</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Which user plugged it
+in?</strong></td>
+<td style="text-align: left;"><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2</code></td>
+<td style="text-align: left;">Specific user profile registry mapping
+proving user account active at mount.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Did user browse files on
+USB?</strong></td>
+<td style="text-align: left;"><code>UsrClass.dat</code> -&gt;
+<code>Local Settings\Software\Microsoft\Windows\Shell\Bags</code></td>
+<td style="text-align: left;">Shellbags: Proves folder directory
+traversal and folder viewing on external volumes.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="removable-media-device-profile-summary-table">2.1 Removable
+Media Device Profile Summary Table</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Device Identifier (Make/Model)</th>
+<th style="text-align: left;">Device Serial #</th>
+<th style="text-align: left;">Volume GUID</th>
+<th style="text-align: left;">Assigned Drive Letter</th>
+<th style="text-align: left;">First Insert Timestamp (UTC)</th>
+<th style="text-align: left;">Last Removal Timestamp (UTC)</th>
+<th style="text-align: left;">User Account Active</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>[INSERT_MAKE_MODEL]</code></td>
+<td style="text-align: left;"><code>[INSERT_SERIAL_NUMBER]</code></td>
+<td style="text-align: left;"><code>{[INSERT_VOLUME_GUID]}</code></td>
+<td style="text-align: left;"><code>[INSERT_DRIVE]:\</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;"><code>[INSERT_USERNAME]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cloud-storage-web-based-exfiltration-triage">3. CLOUD STORAGE
+&amp; WEB-BASED EXFILTRATION TRIAGE</h2>
+<h3 id="local-cloud-sync-client-database-inspection">3.1 Local Cloud
+Sync Client Database Inspection</h3>
+<p>Inspect local client sync SQLite databases to reconstruct batch file
+syncs prior to employee resignation:</p>
+<ul>
+<li><strong>Microsoft OneDrive:</strong>
+<ul>
+<li>SQLite DB Path:
+<code>C:\Users\[USERNAME]\AppData\Local\Microsoft\OneDrive\settings\Personal\</code></li>
+<li>Target File: <code>SyncEngineDatabase.db</code> /
+<code>ClientPolicy.ini</code></li>
+<li>Artifacts: Timestamped record of added files, modified timestamps,
+sync completion flags.</li>
+</ul></li>
+<li><strong>Google Drive for Desktop:</strong>
+<ul>
+<li>SQLite DB Path:
+<code>C:\Users\[USERNAME]\AppData\Local\Google\DriveFS\[USER_ID]\</code></li>
+<li>Target File: <code>metadata_sqlite_db</code></li>
+<li>Artifacts: Original item names, parent directory ID, cloud sync
+state, remote download URLs.</li>
+</ul></li>
+<li><strong>Dropbox:</strong>
+<ul>
+<li>SQLite DB Path:
+<code>C:\Users\[USERNAME]\AppData\Local\Dropbox\instance1\</code></li>
+<li>Target File: <code>filecache.db</code> /
+<code>sync_history.db</code></li>
+</ul></li>
+</ul>
+<h3 id="web-browser-exfiltration-staging-inspection">3.2 Web Browser
+Exfiltration &amp; Staging Inspection</h3>
+<p>Search default browser profiles (<code>Google Chrome</code>,
+<code>Microsoft Edge</code>, <code>Mozilla Firefox</code>) located in
+<code>C:\Users\[USERNAME]\AppData\Local\</code>:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Browser Artifact</th>
+<th style="text-align: left;">Database / File Location</th>
+<th style="text-align: left;">Target Table / Field</th>
+<th style="text-align: left;">Forensic Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Download History</strong></td>
+<td style="text-align: left;"><code>...\Default\History</code></td>
+<td style="text-align: left;"><code>downloads</code> table</td>
+<td style="text-align: left;">Software downloads (e.g., VPNs,
+compression tools, file transfer agents).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>URL Navigation</strong></td>
+<td style="text-align: left;"><code>...\Default\History</code></td>
+<td style="text-align: left;"><code>urls</code> / <code>visits</code>
+table</td>
+<td style="text-align: left;">Access to personal webmail (Gmail/Proton),
+file drop sites (WeTransfer, Mega, Pastebin).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>File Upload Headers</strong></td>
+<td style="text-align: left;"><code>...\Default\Network Action Predictor</code></td>
+<td style="text-align: left;">Upload action records</td>
+<td style="text-align: left;">Proves browser POST operations containing
+large payload byte counts to external URLs.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="archive-creation-staging-intellectual-property-parsing">4.
+ARCHIVE CREATION, STAGING &amp; INTELLECTUAL PROPERTY PARSING</h2>
+<h3 id="compression-bulk-staging-tool-artifacts">4.1 Compression &amp;
+Bulk Staging Tool Artifacts</h3>
+<p>Departing personnel frequently compress large directory structures
+(code repositories, CAD drawings, client lists) prior to
+exfiltration.</p>
+<ul>
+<li><strong>7-Zip History:</strong>
+<code>HKCU\Software\7-Zip\Compression</code> and
+<code>ExtractionPathHistory</code> (Records target source folders and
+output archive paths).</li>
+<li><strong>WinRAR History:</strong>
+<code>HKCU\Software\WinRAR\ArcHistory</code> and
+<code>DialogEditHistory\ArcName</code> (Records recently built
+<code>.rar</code>/<code>.zip</code> container names).</li>
+<li><strong>Target File Knowledge (LNK &amp; Jump Lists):</strong>
+<ul>
+<li>Path:
+<code>C:\Users\[USERNAME]\AppData\Roaming\Microsoft\Windows\Recent\</code></li>
+<li>Parse <code>.lnk</code> and <code>AutomaticDestinations-ms</code>
+files for evidence of accessing staged archives or proprietary
+folders.</li>
+</ul></li>
+</ul>
+<h3 id="staged-compromised-intellectual-property-asset-log">4.2 Staged
+&amp; Compromised Intellectual Property Asset Log</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">File / Archive Name</th>
+<th style="text-align: left;">Source Path on Host Disk</th>
+<th style="text-align: left;">File Size (Bytes)</th>
+<th style="text-align: left;">SHA-256 Hash</th>
+<th style="text-align: left;">Staged / Exfiltrated To
+(USB/Cloud/Web)</th>
+<th style="text-align: left;">Timestamp (UTC)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>SourceCode_Master_2026.zip</code></td>
+<td style="text-align: left;"><code>C:\Users\[USER]\Desktop\</code></td>
+<td style="text-align: left;"><code>[INSERT_BYTES]</code></td>
+<td style="text-align: left;"><code>[INSERT_SHA256]</code></td>
+<td style="text-align: left;">Drive E: (Sandisk Extreme USB)</td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Client_Master_Pipeline.xlsx</code></td>
+<td style="text-align: left;"><code>C:\CompanyShare\Sales\</code></td>
+<td style="text-align: left;"><code>[INSERT_BYTES]</code></td>
+<td style="text-align: left;"><code>[INSERT_SHA256]</code></td>
+<td style="text-align: left;">WeTransfer Web Upload</td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="anti-forensics-evidence-concealment-artifacts">5. ANTI-FORENSICS
+&amp; EVIDENCE CONCEALMENT ARTIFACTS</h2>
+<p>Verify whether intentional evasion, file wiping, or log deletion
+occurred during the exfiltration window:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Audit Log
+Deletion:</strong></label>
+<ul>
+<li>Windows Security Log Event ID <strong>1102</strong> (“The audit log
+was cleared”).</li>
+<li>Windows System Log Event ID <strong>104</strong> (“The log file was
+cleared”).</li>
+</ul></li>
+<li><label><input type="checkbox"></input><strong>Third-Party Sanitizer
+Execution:</strong></label>
+<ul>
+<li>Check Prefetch (<code>C:\Windows\Prefetch\*.pf</code>), Shimcache,
+and Amcache for execution traces of: <code>CCLEANER.EXE</code>,
+<code>BLEACHBIT.EXE</code>, <code>BCWIPE.EXE</code>,
+<code>ERASER.EXE</code>, <code>SDELETE.EXE</code>.</li>
+</ul></li>
+<li><label><input type="checkbox"></input><strong>Volume &amp; Journal
+Anomalies:</strong></label>
+<ul>
+<li>Check NTFS <code>$UsnJrnl</code> for massive clusters of
+<code>USN_REASON_FILE_DELETE</code> entries occurring within
+seconds.</li>
+<li>Inspect <code>$MFT</code> record numbers for anomalous gaps or
+timestomping indicators (<code>$STANDARD_INFORMATION</code> timestamp
+earlier than <code>$FILE_NAME</code> timestamp).</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="investigative-summary-chain-of-evidence-attestation">6.
+INVESTIGATIVE SUMMARY &amp; CHAIN OF EVIDENCE ATTESTATION</h2>
+<h3 id="final-case-assessment-exfiltration-summary">6.1 Final Case
+Assessment &amp; Exfiltration Summary</h3>
+<ul>
+<li><strong>Total Confidential Files Accessed:</strong>
+<code>[INSERT_FILE_COUNT]</code></li>
+<li><strong>Total Volume of Data Exfiltrated:</strong>
+<code>[INSERT_DATA_VOLUME_MB_OR_GB]</code></li>
+<li><strong>Primary Vector Utilized:</strong>
+<code>[ ] USB Mass Storage  [ ] Personal Cloud Sync  [ ] Web Upload / Webmail  [ ] Network Share</code></li>
+<li><strong>Evidence Tampering Detected:</strong>
+<code>[ ] YES  [ ] NO</code></li>
+</ul>
+<h3 id="examiner-sworn-attestation">6.2 Examiner Sworn Attestation</h3>
+<p>I certify that the forensic examination documented in this playbook
+was executed objectively in accordance with ISO/IEC 27042 standards and
+peer-accepted digital forensic methodologies. The identified artifacts
+substantiate the exfiltration vectors and timelines set forth above.</p>
+<p><strong>Lead Forensic Examiner Signature:</strong>
+_____________________________________________<br />
+<strong>Printed Name:</strong> [INSERT_EXAMINER_NAME],
+[CREDENTIALS]<br />
+<strong>Title:</strong> [INSERT_TITLE_OR_RANK]<br />
+<strong>Date Completed:</strong> [INSERT_DATE]</p>
+</body>
+</html>

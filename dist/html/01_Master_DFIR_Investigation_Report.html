@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>01_Master_DFIR_Investigation_Report</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">01_Master_DFIR_Investigation_Report</h1>
+</header>
+<h1 id="master-digital-forensics-investigation-report">MASTER DIGITAL
+FORENSICS INVESTIGATION REPORT</h1>
+<p><strong>Document Control ID:</strong> DFIR-REP-001<br />
+<strong>Compliance Standards:</strong> ISO/IEC 27042:2015, NIST SP
+800-86, Federal Rules of Evidence (FRE 702 &amp; 901)<br />
+<strong>Classification:</strong> HIGHLY CONFIDENTIAL // PRIVILEGED
+ATTORNEY WORK PRODUCT</p>
+<hr />
+<h2 id="administrative-case-header">1. ADMINISTRATIVE CASE HEADER</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Investigative Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Laboratory / Agency Case
+Number:</strong></td>
+<td style="text-align: left;">[INSERT_CASE_NUMBER]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Court / Legal Case
+Caption:</strong></td>
+<td style="text-align: left;">[INSERT_PLAINTIFF_V_DEFENDANT_OR_CRIMINAL_CAPTION]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Requesting Entity / Retaining
+Counsel:</strong></td>
+<td style="text-align: left;">[INSERT_CLIENT_NAME_OR_RETAINING_COUNSEL]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lead Forensic
+Examiner:</strong></td>
+<td style="text-align: left;">[INSERT_PRIMARY_EXAMINER_NAME],
+[CREDENTIALS_E.G., EnCE, CCE, GCFA]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reviewing / Peer
+Examiner:</strong></td>
+<td style="text-align: left;">[INSERT_PEER_REVIEWER_NAME],
+[CREDENTIALS]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Date of Report
+Issuance:</strong></td>
+<td style="text-align: left;">[INSERT_ISSUANCE_DATE]</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Investigation Matter /
+Subject:</strong></td>
+<td style="text-align: left;">[INSERT_INVESTIGATION_TITLE_OR_SUBJECT_NAME]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="executive-summary-investigative-mandate">2. EXECUTIVE SUMMARY
+&amp; INVESTIGATIVE MANDATE</h2>
+<h3 id="statement-of-purpose-scope">2.1 Statement of Purpose &amp;
+Scope</h3>
+<p>[INSERT_LAB_OR_COMPANY_NAME] was retained by [INSERT_CLIENT_NAME] to
+perform a comprehensive digital forensic examination of electronic
+evidence associated with [INSERT_TARGET_USER_OR_SYSTEM]. The mandate was
+to determine whether unauthorized access, intellectual property staging,
+external data transfer, or intentional anti-forensic concealment
+occurred within the timeframe of [INSERT_START_DATE] through
+[INSERT_END_DATE].</p>
+<h3 id="core-technical-findings-summary">2.2 Core Technical Findings
+Summary</h3>
+<ul>
+<li><strong>User Authentication &amp; Session Activity:</strong>
+Forensic artifacts confirm user account
+<code>[INSERT_USER_ACCOUNT]</code> actively authenticated to the system
+during the critical incident window.</li>
+<li><strong>Unauthorized File System Access:</strong> Analysis of
+shellbags and LNK shortcuts establishes direct user traversal and
+interaction with proprietary directories located at
+<code>[INSERT_PROPRIETARY_PATH]</code>.</li>
+<li><strong>Removable Storage &amp; External Mounting:</strong> Registry
+hives verify that external storage media
+(<code>[INSERT_USB_MAKE_MODEL]</code>, Serial:
+<code>[INSERT_USB_SERIAL]</code>) was mounted with write access at
+<code>[INSERT_MOUNT_TIMESTAMP_UTC]</code>.</li>
+<li><strong>Data Staging &amp; Exfiltration:</strong> NTFS
+<code>$UsnJrnl</code> and file system logs substantiate that
+<code>[INSERT_FILE_COUNT]</code> confidential files totaling
+approximately <code>[INSERT_TOTAL_SIZE_MB]</code> MB were copied to
+external storage.</li>
+<li><strong>Anti-Forensic Activity:</strong> Identification of Security
+Event Log clearing (Event ID 1102) and registry artifact manipulation on
+<code>[INSERT_LOG_CLEAR_TIMESTAMP_UTC]</code> indicates deliberate
+evidence destruction.</li>
+</ul>
+<hr />
+<h2 id="evidence-submitted-custodial-integrity">3. EVIDENCE SUBMITTED
+&amp; CUSTODIAL INTEGRITY</h2>
+<h3 id="physical-evidence-intake-master-verification-table">3.1 Physical
+Evidence Intake &amp; Master Verification Table</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Evidence ID</th>
+<th style="text-align: left;">Item Description (Make / Model)</th>
+<th style="text-align: left;">Hardware Serial / IMEI</th>
+<th style="text-align: left;">Physical Condition</th>
+<th style="text-align: left;">Source SHA-256 Hash</th>
+<th style="text-align: left;">Verification Match</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Item 01</strong></td>
+<td style="text-align: left;">[INSERT_MEDIA_MAKE_MODEL_01]</td>
+<td style="text-align: left;">[INSERT_SERIAL_01]</td>
+<td style="text-align: left;">Intact / Sealed</td>
+<td style="text-align: left;"><code>[INSERT_SOURCE_SHA256_01]</code></td>
+<td style="text-align: left;">MATCH (VERIFIED)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Item 02</strong></td>
+<td style="text-align: left;">[INSERT_MEDIA_MAKE_MODEL_02]</td>
+<td style="text-align: left;">[INSERT_SERIAL_02]</td>
+<td style="text-align: left;">Intact / Sealed</td>
+<td style="text-align: left;"><code>[INSERT_SOURCE_SHA256_02]</code></td>
+<td style="text-align: left;">MATCH (VERIFIED)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="target-system-environment-baseline">3.2 Target System
+Environment Baseline</h3>
+<ul>
+<li><strong>System Hostname:</strong>
+<code>[INSERT_HOSTNAME]</code></li>
+<li><strong>Operating System &amp; Build:</strong>
+<code>[INSERT_OS_VERSION_BUILD]</code> (e.g., Windows 11 Enterprise
+23H2)</li>
+<li><strong>Configured System Time Zone:</strong>
+<code>[INSERT_TIMEZONE]</code> (Offset:
+<code>UTC [+/-] [HOURS]</code>)</li>
+<li><strong>Clock Drift / Skew Assessment:</strong> Verified against
+NIST atomic clock reference; skew recorded at
+<code>[INSERT_SKEW_SECONDS]</code> seconds.</li>
+</ul>
+<hr />
+<h2 id="scientific-methodology-tool-validation">4. SCIENTIFIC
+METHODOLOGY &amp; TOOL VALIDATION</h2>
+<p>All examinations were conducted in accordance with ISO/IEC 27037
+standards using forensically sterile media and calibrated hardware
+write-blockers. Hardware and software forensic tools utilized satisfy
+the <em>Daubert</em> / <em>Frye</em> admissibility standards:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tool / Suite Name</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Developer / Vendor</th>
+<th style="text-align: left;">Primary Analytical Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Magnet AXIOM</strong></td>
+<td style="text-align: left;">[INSERT_VERSION]</td>
+<td style="text-align: left;">Magnet Forensics</td>
+<td style="text-align: left;">Comprehensive artifact parsing, indexing,
+and carved data recovery.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FTK Imager</strong></td>
+<td style="text-align: left;">[INSERT_VERSION]</td>
+<td style="text-align: left;">Exterro</td>
+<td style="text-align: left;">Forensically sterile bit-stream physical
+imaging and hash verification.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Eric Zimmerman Tools</strong></td>
+<td style="text-align: left;">[INSERT_VERSION]</td>
+<td style="text-align: left;">Eric Zimmerman</td>
+<td style="text-align: left;">Registry hive parsing (RECmd), Prefetch
+(PECmd), and <code>$MFT</code> parsing (MFTECmd).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>KAPE</strong></td>
+<td style="text-align: left;">[INSERT_VERSION]</td>
+<td style="text-align: left;">Kroll</td>
+<td style="text-align: left;">Targeted artifact triage collection and
+raw journal extraction.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="detailed-technical-findings-artifact-reconstruction">5. DETAILED
+TECHNICAL FINDINGS &amp; ARTIFACT RECONSTRUCTION</h2>
+<h3 id="program-execution-application-usage">5.1 Program Execution &amp;
+Application Usage</h3>
+<p>Analysis of Windows Prefetch (<code>C:\Windows\Prefetch\*.pf</code>),
+UserAssist, and Amcache confirms execution of the following utilities
+during the incident timeframe:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Executable Name</th>
+<th style="text-align: left;">Full File Path</th>
+<th style="text-align: left;">Run Count</th>
+<th style="text-align: left;">First Executed (UTC)</th>
+<th style="text-align: left;">Last Executed (UTC)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>[INSERT_EXE_1]</code></td>
+<td style="text-align: left;"><code>[INSERT_EXE_PATH_1]</code></td>
+<td style="text-align: left;"><code>[COUNT]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[INSERT_EXE_2]</code></td>
+<td style="text-align: left;"><code>[INSERT_EXE_PATH_2]</code></td>
+<td style="text-align: left;"><code>[COUNT]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="folder-directory-traversal-recent-file-access">5.2 Folder
+Directory Traversal &amp; Recent File Access</h3>
+<p>Parsing of <code>UsrClass.dat</code> (Shellbags) and LNK shortcut
+files demonstrates active user awareness and opening of target
+assets:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Artifact Type</th>
+<th style="text-align: left;">File / Folder Target</th>
+<th style="text-align: left;">Parent Directory Path</th>
+<th style="text-align: left;">Timestamp Accessed (UTC)</th>
+<th style="text-align: left;">Forensic Proof / Offset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Shellbag</strong></td>
+<td style="text-align: left;"><code>[INSERT_FOLDER_NAME]</code></td>
+<td style="text-align: left;"><code>[INSERT_PARENT_PATH]</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;">Proves folder viewing in Explorer</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>LNK File</strong></td>
+<td style="text-align: left;"><code>[INSERT_TARGET_FILE]</code></td>
+<td style="text-align: left;"><code>C:\Users\[USER]\...\Recent</code></td>
+<td style="text-align: left;"><code>[INSERT_TIMESTAMP]</code></td>
+<td style="text-align: left;">Proves file launch / interaction</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chronological-incident-timeline-matrix">5.3 Chronological
+Incident Timeline Matrix</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Timestamp (UTC)</th>
+<th style="text-align: left;">Artifact Source Hive</th>
+<th style="text-align: left;">Event Summary &amp; Technical
+Interpretation</th>
+<th style="text-align: left;">Evidence Exhibit #</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>[INSERT_UTC_01]</code></td>
+<td style="text-align: left;"><code>Security.evtx (Event 4624)</code></td>
+<td style="text-align: left;">Successful interactive console logon for
+user <code>[USER]</code></td>
+<td style="text-align: left;">Exhibit A-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[INSERT_UTC_02]</code></td>
+<td style="text-align: left;"><code>SYSTEM\MountedDevices</code></td>
+<td style="text-align: left;">External USB drive mounted as volume
+<code>E:\</code></td>
+<td style="text-align: left;">Exhibit A-2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[INSERT_UTC_03]</code></td>
+<td style="text-align: left;"><code>NTFS \$MFT / \$UsnJrnl</code></td>
+<td style="text-align: left;">File <code>[FILE_NAME]</code> written to
+external drive <code>E:\</code></td>
+<td style="text-align: left;">Exhibit A-3</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[INSERT_UTC_04]</code></td>
+<td style="text-align: left;"><code>Security.evtx (Event 1102)</code></td>
+<td style="text-align: left;">Audit Security Log manually cleared by
+user</td>
+<td style="text-align: left;">Exhibit A-4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="evidence-disposition-exhibits-index">6. EVIDENCE DISPOSITION
+&amp; EXHIBITS INDEX</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Exhibit Identifier</th>
+<th style="text-align: left;">Evidence Description</th>
+<th style="text-align: left;">Format / Storage Location</th>
+<th style="text-align: left;">SHA-256 Hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Exhibit A</strong></td>
+<td style="text-align: left;">Full Forensic Timeline CSV Export</td>
+<td style="text-align: left;">Encrypted Forensic Vault</td>
+<td style="text-align: left;"><code>[INSERT_SHA256]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exhibit B</strong></td>
+<td style="text-align: left;">Extracted Registry Hives &amp; Parse
+Logs</td>
+<td style="text-align: left;">Encrypted Forensic Vault</td>
+<td style="text-align: left;"><code>[INSERT_SHA256]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exhibit C</strong></td>
+<td style="text-align: left;">Chain of Custody Documentation Suite</td>
+<td style="text-align: left;">Physical Case File</td>
+<td style="text-align: left;"><code>[INSERT_SHA256]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="examiner-attestation-formal-declaration">7. EXAMINER ATTESTATION
+&amp; FORMAL DECLARATION</h2>
+<p>I declare under penalty of perjury under the laws of the United
+States of America that the digital forensics examination documented in
+this report was performed objectively, impartially, and in accordance
+with accepted scientific forensic methodologies. The conclusions
+expressed herein represent my professional opinions held to a reasonable
+degree of scientific and forensic certainty.</p>
+<p><strong>Lead Forensic Examiner Signature:</strong>
+_____________________________________________<br />
+<strong>Printed Name:</strong> [INSERT_EXAMINER_NAME],
+[CREDENTIALS]<br />
+<strong>Title:</strong> [INSERT_TITLE_OR_RANK]<br />
+<strong>Organization:</strong> [INSERT_LAB_OR_COMPANY_NAME]<br />
+<strong>Date Signed:</strong> [INSERT_DATE]</p>
+</body>
+</html>

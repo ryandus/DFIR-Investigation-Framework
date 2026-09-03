@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>03_A_Ransomware_Playbook</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; padding: 2rem; max-width: 900px; margin: auto; }
+h1, h2, h3 { color: #0d233a; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.95em; }
+th, td { border: 1px solid #d0d7de; padding: 8px 12px; text-align: left; }
+th { background-color: #f6f8fa; font-weight: 600; }
+tr:nth-child(even) { background-color: #fbfcfd; }
+pre, code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: #f6f8fa; border-radius: 4px; }
+pre { padding: 12px; overflow-x: auto; border: 1px solid #e1e4e8; }
+code { padding: 2px 4px; font-size: 0.9em; }
+blockquote { border-left: 4px solid #0969da; color: #57606a; padding: 0 1em; margin: 1em 0; }
+hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #d0d7de; border: 0; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">03_A_Ransomware_Playbook</h1>
+</header>
+<h1 id="ransomware-extortion-incident-response-playbook">RANSOMWARE
+&amp; EXTORTION INCIDENT RESPONSE PLAYBOOK</h1>
+<p><strong>Document Control ID:</strong> DFIR-PB-001 <strong>Target
+Standard:</strong> NIST SP 800-61 Rev. 3 / ISO/IEC 27037 <strong>Case
+Tracking Number:</strong> [INSERT_CASE_ID] <strong>Lead
+Investigator:</strong> [INSERT_EXAMINER_NAME] |
+<strong>Lab/Agency:</strong> [INSERT_ORGANIZATION] <strong>Date of
+Incident:</strong> [INSERT_INCIDENT_DATE] |
+<strong>Classification:</strong> HIGHLY CONFIDENTIAL / PRIVILEGED</p>
+<hr />
+<h2 id="incident-severity-escalation-matrix">1. INCIDENT SEVERITY &amp;
+ESCALATION MATRIX</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Severity Level</th>
+<th style="text-align: left;">Trigger Criteria</th>
+<th style="text-align: left;">Initial Response SLA</th>
+<th style="text-align: left;">Authorized Incident Commander</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Level 1 (Critical)</strong></td>
+<td style="text-align: left;">Active domain-wide encryption, DC
+compromised, backup destruction.</td>
+<td style="text-align: left;">Immediate (&lt; 15 min)</td>
+<td style="text-align: left;">CISO / Legal Lead / Lead Examiner</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Level 2 (High)</strong></td>
+<td style="text-align: left;">Multi-host encryption/exfiltration
+confirmed, EDR disabled on subnet.</td>
+<td style="text-align: left;">&lt; 1 Hour</td>
+<td style="text-align: left;">Incident Response Lead</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Level 3 (Medium)</strong></td>
+<td style="text-align: left;">Single isolated workstation encrypted,
+lateral movement blocked.</td>
+<td style="text-align: left;">&lt; 4 Hours</td>
+<td style="text-align: left;">Senior DFIR Examiner</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Level 4 (Low)</strong></td>
+<td style="text-align: left;">Ransomware execution attempted but blocked
+by endpoint telemetry.</td>
+<td style="text-align: left;">&lt; 24 Hours</td>
+<td style="text-align: left;">SOC Tier 2 Analyst</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-1-immediate-isolation-containment">2. PHASE 1: IMMEDIATE
+ISOLATION &amp; CONTAINMENT</h2>
+<blockquote>
+<p><strong>CRITICAL EVIDENCE PRESERVATION RULE:</strong> <strong>DO
+NOT</strong> reboot or power down live endpoints immediately. Volatile
+memory (RAM) contains active encryption keys, command-and-control (C2)
+sockets, and injected payload artifacts.</p>
+</blockquote>
+<h3 id="network-endpoint-isolation">2.1 Network &amp; Endpoint
+Isolation</h3>
+<p>Execute containment commands in order of operational priority:</p>
+<ol type="1">
+<li><strong>Host-Level Network Interface Disablement:</strong></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable all active physical and virtual network interfaces</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Get-NetAdapter <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span> <span class="va">$_</span><span class="op">.</span><span class="fu">Status</span> <span class="op">-eq</span> <span class="st">&quot;Up&quot;</span> <span class="op">}</span> <span class="op">|</span> Disable-NetAdapter <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span></code></pre></div>
+<ol start="2" type="1">
+<li><strong>Block Outbound Command &amp; Control (C2):</strong></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an emergency outbound block rule</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>New-NetFirewallRule <span class="op">-</span>DisplayName <span class="st">&quot;DFIR-Emergency-C2-Block&quot;</span> <span class="op">-</span>Direction Outbound <span class="op">-</span>Action Block <span class="op">-</span>Profile Any</span></code></pre></div>
+<ol start="3" type="1">
+<li><strong>Terminate Lateral Movement Vector (SMB/RPC):</strong></li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop Server service immediately</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Stop-Service</span> <span class="op">-</span>Name LanmanServer <span class="op">-</span>Force</span></code></pre></div>
+<hr />
+<h2 id="phase-2-evidence-preservation-artifact-hunting">3. PHASE 2:
+EVIDENCE PRESERVATION &amp; ARTIFACT HUNTING</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Live Volatile RAM
+Capture:</strong> Run <code>winpmem.exe</code> or
+<code>DumpIt.exe</code> directly to an external triage drive
+(<code>E:\</code>).</label></li>
+<li><label><input type="checkbox"></input><strong>Volume Shadow Copies
+(VSS):</strong> Check if shadow copies exist
+(<code>vssadmin list shadows</code>) before malware can delete
+them.</label></li>
+<li><label><input type="checkbox"></input><strong>KAPE Triage
+Collection:</strong> Extract <code>$MFT</code>, <code>$LogFile</code>,
+<code>$UsnJrnl</code>, Prefetch (<code>C:\Windows\Prefetch</code>), and
+Event Logs (<code>.evtx</code>).</label></li>
+<li><label><input type="checkbox"></input><strong>Ransom Note &amp; Sample
+Isolation:</strong> Secure an encrypted sample file alongside the ransom
+note (<code>README.txt</code> / <code>.hta</code>).</label></li>
+</ul>
+<hr />
+<h2 id="phase-3-root-cause-initial-access-analysis">4. PHASE 3: ROOT
+CAUSE &amp; INITIAL ACCESS ANALYSIS</h2>
+<p>Interrogate the following artifact vectors to determine patient zero
+and entry mechanism:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Vector</th>
+<th style="text-align: left;">Forensic Target</th>
+<th style="text-align: left;">Query / Investigation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>External RDP / VPN</strong></td>
+<td style="text-align: left;">Security Log Event ID 4624 (Type 10 / Type
+3)</td>
+<td style="text-align: left;">Look for anomalous source IPs or
+credential spray patterns.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Phishing / Email</strong></td>
+<td style="text-align: left;">Outlook PST/OST, <code>Recent</code> LNK
+files, Downloads</td>
+<td style="text-align: left;">Inspect execution of ISO, ZIP, LNK, or
+macro-enabled documents.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Public Exploits</strong></td>
+<td style="text-align: left;">IIS / Apache / VPN Gateway Access
+Logs</td>
+<td style="text-align: left;">Search for POST requests targeting known
+CVE endpoints.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Privilege Escalation</strong></td>
+<td style="text-align: left;">Event ID 4672, 7045 (New Service),
+PsExec</td>
+<td style="text-align: left;">Hunt for injected services, Cobalt Strike
+beacons, or Mimikatz traces.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="phase-4-extortion-exfiltration-triage">5. PHASE 4: EXTORTION
+&amp; EXFILTRATION TRIAGE</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>Cloud Storage Sync &amp; Web
+Uploads:</strong> Check browser history and cloud tool database files
+(<code>SyncEngineDatabase.db</code>,
+<code>filecache.db</code>).</label></li>
+<li><label><input type="checkbox"></input><strong>Mega / Rclone
+Staging:</strong> Inspect registry <code>HKCU\Software\rclone</code> and
+prefetch traces for <code>RCLONE.EXE</code> or
+<code>MEGASYNC.EXE</code>.</label></li>
+<li><label><input type="checkbox"></input><strong>Network Egress
+Volume:</strong> Request firewall NetFlow / perimeter egress logs to
+quantify exfiltrated megabytes.</label></li>
+</ul>
+<hr />
+<h2 id="phase-5-eradication-recovery-lessons-learned">6. PHASE 5:
+ERADICATION, RECOVERY &amp; LESSONS LEARNED</h2>
+<ol type="1">
+<li><strong>Active Directory Reset:</strong> Perform a double Kerberos
+Ticket-Granting Service (<code>krbtgt</code>) password reset across
+domain controllers.</li>
+<li><strong>Gold Master Rebuilds:</strong> Never attempt to “clean” an
+encrypted host; re-image all impacted operating systems from trusted
+bare-metal gold images.</li>
+<li><strong>Decryption Tool Verification:</strong> Submit isolated
+ransomware sample binaries and notes to <em>NoMoreRansom.org</em> to
+verify if public decryptors exist before considering ransom
+negotiations.</li>
+<li><strong>Post-Mortem Incident Timeline:</strong> Consolidate artifact
+timestamps into the Master DFIR Investigation Report within 72 hours of
+containment.</li>
+</ol>
+</body>
+</html>
