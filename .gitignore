@@ -1,5 +1,13 @@
-﻿Thumbs.db
+Thumbs.db
 Desktop.ini
 .DS_Store
 ~$*
 *.tmp
+
+# Secrets
+.env*
+!.env.example
+*.pem
+*.key
+credentials.json
+token.json
